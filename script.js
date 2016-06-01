@@ -6,7 +6,13 @@ var handler = function() {
 
 var handlerOut = function() {
 	this.style.color = "initial";
-	this.removeEventListener( "mouseover", handler, false  ) 
+
+	if(this.removeEventListener) {
+		this.removeEventListener( "mouseover", handler, false  );
+	}
+	else {
+		this.detachEvent( "onmouseover", handler);
+	}
 };
 
 <!-- перехват события через свойство обьекта не самый лучший вариант из-за ограничений количества обработчиков при возникновении того же события -->
@@ -24,4 +30,5 @@ if( elt.addEventListener ) {
 }
 else {
 	elt.attachEvent( "onmouseover", handler );
+	elt.attachEvent( "onmouseout", handlerOut );
 }
