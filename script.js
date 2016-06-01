@@ -1,12 +1,14 @@
-var elt = document.getElementById("main-page-link");
+var elt = document.getElementById("header");
+var handler = function(){ this.style.color = "red" };
 
-elt.onclick = function(){
-    alert("Работает");
-    this.style.color="red";
-}
 
-function changeColor(){
-    this.style.color = "brown";
-}
+<!-- перехват события через свойство обьекта не самый лучший вариант из-за ограничений количества обработчиков при возникновении того же события -->
+//elt.onclick = function(){
+//    alert("Работает");
+//    this.style.color="red";
+//}
 
-elt.addEventListener("click", changeColor, false);
+<!-- Более универсальный способ это метод addEventListener и attachEvent() <- IE -->
+
+if( elt.addEventListener ) elt.addEventListener("mouseover", handler, false);
+else elt.attachEvent("onmouseover", handler);
